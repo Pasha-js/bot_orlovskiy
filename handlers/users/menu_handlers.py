@@ -5,9 +5,10 @@ from aiogram.dispatcher.filters import Command, CommandStart
 from aiogram.types import CallbackQuery
 from loader import dp, bot, db
 from keyboards.inline.menu_keyboards import start_keyboard, next_btn, choice_keyboard, sign_btn, detail_keyboard,\
-    additional_keyboard, descr_keyboard
+    additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard
 from keyboards.inline.callback_datas import menu_callback
 import sqlite3
+import emoji
 
 
 @dp.callback_query_handler(menu_callback.filter(item_name='cancel'))
@@ -21,9 +22,10 @@ async def cancel(call: CallbackQuery):
 @dp.message_handler(CommandStart())
 async def show_menu(message: types.Message):
     markup = await start_keyboard()
-    await message.answer(f"Доброго дня {message.from_user.full_name}!\n"
-                         f"Мене звати Ірина і я ваш онлайн асистент.\n"
-                         f"Спершу перейдіть по посиланню та ближче познайомтесь з Іриною Орловською.",
+    await message.answer(text=f"Доброго дня {message.from_user.full_name}!\n" 
+                         f"Мене звати Ірина і я ваш онлайн асистент. {emoji.emojize(':fire:')}\n"
+                              f"Спершу перейдіть по посиланню та ближче познайомтесь з Іриною Орловською",
+
                          reply_markup=markup)
 
 
@@ -65,25 +67,43 @@ async def sign(message: types.Message):
 @dp.callback_query_handler(menu_callback.filter(item_name="detail"))
 async def detail_course(call: CallbackQuery):
     markup = await detail_keyboard()
-    await call.message.answer(text='Ви нажали Детальніше про курс\n',
+    await call.message.edit_text(text='Ви нажали Детальніше про курс\n',
                               reply_markup=markup)
 
 
 @dp.callback_query_handler(menu_callback.filter(item_name="additional"))
 async def additional_info(call: CallbackQuery):
     markup = await additional_keyboard()
-    await call.message.answer(text='Ви нажали додаткові питання\n',
+    await call.message.edit_text(text='Ви нажали додаткові питання\n',
                               reply_markup=markup)
 
 
 @dp.callback_query_handler(menu_callback.filter(item_name="descr"))
 async def descr_info(call: CallbackQuery):
     markup = await descr_keyboard()
-    await call.message.answer(text='Ви нажали Опис\n',
+    await call.message.edit_text(text='Ви нажали Опис\n',
                               reply_markup=markup)
 
 
 
+@dp.callback_query_handler(menu_callback.filter(item_name="adress"))
+async def adress_info(call: CallbackQuery):
+    await call.answer("Тут буде адресса", show_alert=True)
+    await call.message.edit_reply_markup()
+
+
+@dp.callback_query_handler(menu_callback.filter(item_name="get"))
+async def get_info(call: CallbackQuery):
+    markup = await get_keyboard()
+    await call.message.edit_text(text='тут буде текст \n',
+                              reply_markup=markup)
+
+
+@dp.callback_query_handler(menu_callback.filter(item_name="reason"))
+async def reason_info(call: CallbackQuery):
+    markup = await reason_keyboard()
+    await call.message.edit_text(text='тут буде текст\n',
+                              reply_markup=markup)
 
 
 # markup = await sign_btn()
