@@ -1,9 +1,9 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
-from keyboards.inline.support import support_keyboard, check_support_available, get_support_manager
+from keyboards.inline.support import support_keyboard, check_support_available, get_support_manager, cancel_support
 from keyboards.inline.callback_datas import support_callback, cancel_support_callback
-from
+
 
 from loader import dp, bot
 
@@ -36,7 +36,7 @@ async def send_to_support_call(call: types.CallbackQuery, state: FSMContext, cal
     await state.set_state("wait_in_support")
     await state.update_data(second_id=support_id)
 
-    keyboard = support_keyboard(messages="many", user_id=call.from_user.id)
+    keyboard = await support_keyboard(messages="many", user_id=call.from_user.id)
 
     await bot.send_message(support_id,
                            f"З вами хоче звязатись користувач {call.from_user.full_name}",
@@ -85,7 +85,7 @@ async def exit_support(call: types.CallbackQuery, state: FSMContext, callback_da
 
     if await second_state.get_state() is not None:
         data_second = await second_state.get_data()
-        second_id = data_second.get("user_id")
+        second_id = data_second.get("second_id")
         if int(second_id) == call.from_user.id:
             await second_state.reset_state()
             await bot.send_message(user_id, "Користувач завершив сеанс")

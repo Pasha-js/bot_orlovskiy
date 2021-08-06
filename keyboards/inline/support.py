@@ -70,3 +70,17 @@ async def support_keyboard(messages, user_id=None):
             )
         )
     return keyboard
+
+def cancel_support(user_id):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="Завершити сеанс",
+                    callback_data=cancel_support_callback.new(
+                        user_id=user_id
+                    )
+                )
+            ]
+        ]
+    )
