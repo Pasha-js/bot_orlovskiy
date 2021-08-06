@@ -1,8 +1,10 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from keyboards import inline
 from keyboards.inline.support import support_keyboard
-from keyboards.inline.callback_datas import support_callback
+from keyboards.inline.callback_datas import support_callback, cancel_support_callback
 
 
 from loader import dp, bot
@@ -41,3 +43,13 @@ async def get_support_message(message: types.Message, state: FSMContext):
     await message.answer("Ви відправили це повідомлення")
     await state.reset_state()
     
+
+def cancel_support(user_id):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            InlineKeyboardButton(
+                text="Завершити сеанс",
+                callback_data=cancel_support_callback.new(user_id=user_id)
+            )
+        ]
+    )

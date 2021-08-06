@@ -2,7 +2,7 @@ from aiogram.utils.callback_data import CallbackData
 from aiogram import types
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, user
 from loader import dp, bot
-from keyboards.inline.callback_datas import menu_callback, support_callback, cancel_support
+from keyboards.inline.callback_datas import menu_callback, support_callback, cancel_support_callback
 from data.config import supports_ids
 import random
 
@@ -64,7 +64,7 @@ async def support_keyboard(messages, user_id=None):
         keyboard.add(
             InlineKeyboardButton(
                 text="Завершити діалог",
-                callback_data=cancel_support.new(
+                callback_data=cancel_support_callback.new(
                     user_id=contact_id
                 )
             )
