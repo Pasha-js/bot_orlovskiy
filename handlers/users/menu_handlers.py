@@ -2,11 +2,12 @@ import logging
 from typing import Union
 from aiogram import types
 from aiogram.dispatcher.filters import Command, CommandStart
+from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import CallbackQuery
 from loader import dp, bot, db
 from keyboards.inline.menu_keyboards import start_keyboard, next_btn, choice_keyboard, sign_btn, detail_keyboard,\
-    additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard
-from keyboards.inline.callback_datas import menu_callback
+    additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard, support_keyboard
+from keyboards.inline.callback_datas import menu_callback, support_callback
 import sqlite3
 import emoji
 
@@ -104,6 +105,43 @@ async def reason_info(call: CallbackQuery):
     markup = await reason_keyboard()
     await call.message.edit_text(text='тут буде текст\n',
                               reply_markup=markup)
+
+
+@dp.message_handler(Command("support"))
+async def ask_support(message: types.Message):
+    text = "Хочете написати в техпідтримку? Нажміть на кнопку нижче"
+    keyboard = await support_keyboard(messages="one")
+    await message.answer(text, reply_markup=keyboard)
+
+@dp.callback_query_handler(support_callback.filter(messages="one"))
+async def send_to_support(call: types.CallbackQuery, state: FSMContext, callback_data: dict):
+    await call.answer()
+    user_id = int(callback_data.get("user_id"))
+    
+    await call.message.answer("Пришліть ваше повідомлення")
+    await state.set_state("wait_for_support_message")
+    await state.update_data(second_id=user_id)
+    
+    
+@dp.message_handler(state="wait_for_support_message")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # markup = await sign_btn()
