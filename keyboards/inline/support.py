@@ -49,7 +49,6 @@ async def support_keyboard(messages, user_id=None):
             text = "Написати опературу"
 
     keyboard = InlineKeyboardMarkup()
-
     keyboard.add(
         InlineKeyboardButton(
             text=text,
@@ -70,4 +69,4 @@ async def support_keyboard(messages, user_id=None):
                 )
             )
         )
-    return support_keyboard
+    return keyboard
