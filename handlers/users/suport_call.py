@@ -15,6 +15,9 @@ from loader import dp, bot
 async def ask_support(message: types.Message):
     text = "Хочете написати в техпідтримку? Нажміть на кнопку нижче"
     keyboard = await support_keyboard(messages="many")
+    if not keyboard:
+        await message.answer("Нема операторів.")
+        return
     await message.answer(text, reply_markup=keyboard)
 
 
@@ -75,6 +78,7 @@ async def send_support_call(call: types.CallbackQuery, state: FSMContext, callba
 async def not_supported(message: types.Message, state: FSMContext):
     data = await state.get_data()
     second_id = data.get("second_id")
+
     keyboard = cancel_support(second_id)
     await message.answer("Дочекайтесь відповіді від менеджера або відмініть сеанс", reply_markup=keyboard)
 
