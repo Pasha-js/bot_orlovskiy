@@ -37,11 +37,9 @@ async def choice_keyboard():
     choice_detail = InlineKeyboardButton(text='Детальніше' + emoji.emojize(":detective:"), callback_data=menu_callback.new(item_name='detail'))
     choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":heavy_dollar_sign:"), callback_data=menu_callback.new(item_name='sign_btn'))
     choice_link = InlineKeyboardButton(text='Інстаграм ірини' + emoji.emojize(":peace_symbol:"), url=INSTA_LINK)
-    cancel_btn = InlineKeyboardButton(text='Назад' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='cancel'))
     initial_keyboard.insert(choice_detail)
     initial_keyboard.insert(choice_sign)
     initial_keyboard.insert(choice_link)
-    initial_keyboard.insert(cancel_btn)
     return initial_keyboard
 
 
@@ -59,10 +57,10 @@ async def detail_keyboard():
     initial_keyboard = InlineKeyboardMarkup(row_width=2)
     descr_btn = InlineKeyboardButton(text='Опис', callback_data=menu_callback.new(item_name='descr'))
     additional_btn = InlineKeyboardButton(text='Додаткові питання', callback_data=menu_callback.new(item_name='additional'))
-    cancel_btn = InlineKeyboardButton(text='Назад' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='cancel'))
+    # cancel_btn = InlineKeyboardButton(text='Назад' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='cancel'))
     initial_keyboard.insert(descr_btn)
     initial_keyboard.insert(additional_btn)
-    initial_keyboard.insert(cancel_btn)
+    # initial_keyboard.insert(cancel_btn)
     return initial_keyboard
 
 
