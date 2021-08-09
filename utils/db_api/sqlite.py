@@ -1,4 +1,6 @@
 import sqlite3
+from aiogram import types
+
 
 
 class Database:
@@ -64,6 +66,18 @@ class Database:
 
     def count_users(self):
         return self.execute("SELECT COUNT(*) FROM Users;", fetchone=True)
+
+    # def count_users(self):
+
+    # def count_subs(self):
+    #     user_id = types.User.get_current().id
+    #     rows = user_id
+    #     text = ''
+    #     for num, row in enumerate(rows):
+    #         chat = bot.get_chat(row["chat_id"])
+    #         user_link = chat.get_mention(as_html=True)
+    #         text += str(num+1) + ". " + user_link
+    #         return text
 
     def update_email(self, email, id):
         sql = "UPDATE Users SET email=? WHERE id =?"
