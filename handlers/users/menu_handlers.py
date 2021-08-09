@@ -12,6 +12,7 @@ import sqlite3
 import emoji
 from data.config import admin_id
 from asyncpg.exceptions import UniqueViolationError
+import asyncpg
 
 @dp.callback_query_handler(menu_callback.filter(item_name='cancel'))
 async def cancel(call: CallbackQuery):
@@ -59,11 +60,11 @@ async def sign(message: Union[CallbackQuery, Message]):
     markup = await sign_btn()
     name = message.from_user.full_name
     try:
-        db.add_user(id=message.from_user.id,
+        await db.add_user(id=message.from_user.id,
                     name=name)
-    except sqlite3.IntegrityError as err:
-        print(err)
-    count = db.count_users()[0]
+    except asyncpg.exceptions.UniqueViolationError:
+        pass
+    count = await db.count_users()
     call = message
     await call.message.answer(text=f"Вітаємо {message.from_user.full_name}!\n"
                          f"Ви записалися на курс.\n"

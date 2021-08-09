@@ -19,15 +19,22 @@ import emoji
 
 async def on_startup(dispatcher):
     # Устанавливаем дефолтные команды
-
+    import filters
+    import middlewares
     # Уведомляет про запуск
 
+    from utils.notify_admins import on_startup_notify
+    print("Створюємо таблицю користувачів")
     try:
-        db.create_table_users()
+        await db.create_table_users()
     except Exception as err:
         print(err)
-    db.delete_users()
-    print(db.select_all_users())
+    print("Готово")
+
+    print("Чистим таблицю користувачів")
+    await db.delete_users()
+    print('')
+    # print(db.select_all_users())
     await on_startup_notify(dispatcher)
     await set_default_commands(dispatcher)
 
