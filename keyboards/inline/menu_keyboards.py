@@ -35,7 +35,7 @@ async def choice_keyboard():
     initial_keyboard = InlineKeyboardMarkup(row_width=2)
     INSTA_LINK = "https://www.instagram.com/orlovskairyna/"
     choice_detail = InlineKeyboardButton(text='Детальніше' + emoji.emojize(":detective:"), callback_data=menu_callback.new(item_name='detail'))
-    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":heavy_dollar_sign:"), callback_data=menu_callback.new(item_name='sign_btn'))
+    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":fire:"), callback_data=menu_callback.new(item_name='sign_btn'))
     choice_link = InlineKeyboardButton(text='Інстаграм ірини' + emoji.emojize(":up-right_arrow:"), url=INSTA_LINK)
     initial_keyboard.insert(choice_detail)
     initial_keyboard.insert(choice_sign)
@@ -72,7 +72,7 @@ async def descr_keyboard():
     additional_btn = InlineKeyboardButton(text='Додаткові питання' + emoji.emojize(":pill:"),
                                           callback_data=menu_callback.new(item_name='additional'))
     choice_link = InlineKeyboardButton(text='Інстаграм ірини' + emoji.emojize(":up-right_arrow:"), url=INSTA_LINK)
-    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":memo:"), callback_data=menu_callback.new(item_name='sign_btn'))
+    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":fire:"), callback_data=menu_callback.new(item_name='sign_btn'))
     cancel_btn = InlineKeyboardButton(text='Відміна' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='cancel'))
     initial_keyboard.insert(additional_btn)
     initial_keyboard.insert(choice_sign)
@@ -85,7 +85,7 @@ async def descr_keyboard():
 async def additional_keyboard():
     initial_keyboard = InlineKeyboardMarkup(2)
     adress_btn = InlineKeyboardButton(text='Адресса проведення' + emoji.emojize(":double_exclamation_mark:"), callback_data=menu_callback.new(item_name='adress'))
-    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":memo:"), callback_data=menu_callback.new(item_name='sign_btn'))
+    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":fire:"), callback_data=menu_callback.new(item_name='sign_btn'))
     get_btn = InlineKeyboardButton(text='Що я отримаю' + emoji.emojize(":file_folder:"), callback_data=menu_callback.new(item_name='get'))
     reason_course = InlineKeyboardButton(text='Для чого мені цей курс' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='reason'))
     cancel_btn = InlineKeyboardButton(text='Відміна' + emoji.emojize(":red_question_mark:"), callback_data=menu_callback.new(item_name='cancel'))

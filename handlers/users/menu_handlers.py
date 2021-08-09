@@ -21,6 +21,7 @@ async def cancel(call: CallbackQuery):
 
 
 
+
 @dp.message_handler(CommandStart())
 async def show_menu(message: types.Message):
     markup = await start_keyboard()
