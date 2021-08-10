@@ -12,6 +12,7 @@ import sqlite3
 import emoji
 from data.config import admin_id
 from asyncpg.exceptions import UniqueViolationError
+from aiogram.utils.markdown import hbold, hcode, hitalic, hunderline, hstrikethrough, hlink
 
 @dp.callback_query_handler(menu_callback.filter(item_name='cancel'))
 async def cancel(call: CallbackQuery):
@@ -24,12 +25,21 @@ async def cancel(call: CallbackQuery):
 @dp.message_handler(CommandStart())
 async def show_menu(message: types.Message):
     markup = await start_keyboard()
-    await message.answer(text=f"Доброго дня {message.from_user.full_name}!\n" 
-                         f"Мене звати Ірина і я ваш онлайн асистент. {emoji.emojize(':fire:')}\n"
+    await message.answer(text=f"Доброго дня!\n" + hbold ({message.from_user.full_name}),
+                         f"Моє ім'я Аня і я ваш онлайн асистент. {emoji.emojize(':fire:')}\n"
                               f"Спершу перейдіть по посиланню та ближче познайомтесь з Іриною Орловською",
 
                          reply_markup=markup)
 
+
+# @dp.message_handler(CommandStart())
+# async def show_menu(message: types.Message):
+#     html_text = "Доброго дня " + hbold (message.from_user.full_name),
+#     "Моє ім'я Аня і я ваш онлайн асистент.", {emoji.emojize(':fire:')},
+#     "Спершу перейдіть по посиланню та ближче познайомтесь з Іриною Орловською"
+#
+#     markup = await start_keyboard()
+#     await message.answer(html_text, reply_markup=markup)
 
 
 @dp.callback_query_handler(menu_callback.filter(item_name="next"))
