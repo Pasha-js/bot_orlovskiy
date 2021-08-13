@@ -44,7 +44,7 @@ async def support_keyboard(messages, user_id=None):
             contact_id = random.choice(supports_ids)
 
         if messages == "one":
-            text = "Написати одне повідомлення в техпідтримку"
+            text = "Написати Імя та номер телефону!"
         else:
             text = "Написати опературу"
 

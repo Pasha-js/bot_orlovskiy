@@ -4,8 +4,9 @@ from aiogram.dispatcher.filters import Command
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from keyboards import inline
 from keyboards.inline.support import support_keyboard
-from keyboards.inline.callback_datas import support_callback, cancel_support_callback
-
+from keyboards.inline.callback_datas import support_callback, cancel_support_callback, menu_callback
+from typing import Union
+from aiogram.types import CallbackQuery, Message
 
 from loader import dp, bot
 
@@ -13,11 +14,13 @@ from loader import dp, bot
 
 
 
-@dp.message_handler(Command("support"))
-async def ask_support(message: types.Message):
+# @dp.message_handler(Command("support"))
+@dp.callback_query_handler(menu_callback.filter(item_name="chat"))
+async def ask_support(message: Union[CallbackQuery, Message]):
     text = "Хочете написати в техпідтримку? Нажміть на кнопку нижче"
     keyboard = await support_keyboard(messages="one")
-    await message.answer(text, reply_markup=keyboard)
+    call = message
+    await call.message.answer(text, reply_markup=keyboard)
 
 @dp.callback_query_handler(support_callback.filter(messages="one"))
 async def send_to_support(call: types.CallbackQuery, state: FSMContext, callback_data: dict):

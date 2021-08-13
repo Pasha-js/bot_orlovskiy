@@ -7,6 +7,7 @@ from aiogram.types import CallbackQuery, Message
 from loader import dp, bot, db
 from keyboards.inline.menu_keyboards import start_keyboard, next_btn, choice_keyboard, sign_btn, detail_keyboard,\
     additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard, pay_keyboard, lesson_keyboard
+from keyboards.inline.support import support_keyboard
 from keyboards.inline.callback_datas import menu_callback, support_callback
 import sqlite3
 import emoji
@@ -17,7 +18,7 @@ from aiogram.utils.markdown import hbold, hcode, hitalic, hunderline, hstrikethr
 
 @dp.callback_query_handler(menu_callback.filter(item_name='cancel'))
 async def cancel(call: CallbackQuery):
-    await call.answer("Відміна", show_alert=True)
+    # await call.answer("Назад")
     await call.message.edit_reply_markup()
     await call.message.delete()
 

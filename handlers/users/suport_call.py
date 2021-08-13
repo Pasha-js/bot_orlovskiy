@@ -53,7 +53,7 @@ async def send_support_call(call: types.CallbackQuery, state: FSMContext, callba
     user_state = dp.current_state(user=second_id, chat=second_id)
 
     if str(await user_state.get_state()) != "wait_in_support":
-        await call.message.edit_text('Нажаль користувач втік)')
+        await call.message.edit_text('Нажаль користувач вийшов)')
         return
 
     await state.set_state("in_support")
