@@ -6,7 +6,7 @@ from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import CallbackQuery, Message
 from loader import dp, bot, db
 from keyboards.inline.menu_keyboards import start_keyboard, next_btn, choice_keyboard, sign_btn, detail_keyboard,\
-    additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard, pay_keyboard
+    additional_keyboard, descr_keyboard, adress_keyboard, get_keyboard, reason_keyboard, pay_keyboard, lesson_keyboard
 from keyboards.inline.callback_datas import menu_callback, support_callback
 import sqlite3
 import emoji
@@ -214,7 +214,7 @@ async def reason_info(call: CallbackQuery):
 
 
 
-@dp.message_handler(menu_callback.filter(item_name="pay"))
+@dp.callback_query_handler(menu_callback.filter(item_name="pay"))
 async def pay_info(call: CallbackQuery):
     markup = await pay_keyboard()
 
@@ -225,6 +225,29 @@ async def pay_info(call: CallbackQuery):
                                    'Після цього бронюємо Вам місце та записуємо на курс.',
                               reply_markup=markup)
 
+@dp.callback_query_handler(menu_callback.filter(item_name="lesson"))
+async def lesson_info(call: CallbackQuery):
+    markup = await lesson_keyboard()
+
+    await call.message.answer(text='🔸 теоретична та демонстраційна частина «Нарощування волосся. Види та техніки роботи»\n'
+                                   '🔸 хімічні процедури («нанопластика, кератин, хім. завивка. Робота з хімічними препаратами»\n'
+                                   '\n'
+                                   '👍 Наші учні отримують ряд переваг:\n'
+                                   '\n'
+                                   '    -Величезна кількість практичних уроків;\n'
+                                   '    -Твої викладачі успішні майстри та чемпіони України у різних номінаціях за версією СПУ, '
+                                   'а директор та наставник – майстер міжнародного класу, призер чемпіонату світу, '
+                                   'старійшина та лідер СПУ, кращий тренер 2019 та 2020 років;\n'
+                                   '    -Повне забезпечення матеріалами;'
+                                   '    -Авторський диплом з мокрою печаткою;'
+                                   '    -Допомога у підборі професійних інструментів, засобів догляду, косметики;'
+                                   '    -Гуртова ціна на професійні інструменти;'
+                                   '    -Зручне розташування та графік навчання.'
+                                   '\n'
+                                   '📚 Будемо раді працювати з вами, та навчити новітнім методикам в beauty індустрії.'
+                                   '\n'
+                                   '💳 Ціна курсу «Перукар – модельєр»  -  26 000 грн.',
+                              reply_markup=markup)
 
 
 # @dp.message_handler(user_id=admin_id, commands=['check_subs'])
