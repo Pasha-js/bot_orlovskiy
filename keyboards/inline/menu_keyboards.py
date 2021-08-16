@@ -55,12 +55,18 @@ async def sign_btn():
 
 
 async def detail_keyboard():
+    INSTA_LINK = "https://www.instagram.com/orlovskairyna/"
     initial_keyboard = InlineKeyboardMarkup(row_width=2)
     descr_btn = InlineKeyboardButton(text='Опис' + emoji.emojize(":wrapped_gift:"), callback_data=menu_callback.new(item_name='descr'))
     additional_btn = InlineKeyboardButton(text='Додаткові питання' + emoji.emojize(":red_question_mark:"), callback_data=menu_callback.new(item_name='additional'))
+    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":heavy_dollar_sign:"),
+                                       callback_data=menu_callback.new(item_name='sign_btn'))
+    choice_link = InlineKeyboardButton(text='Інстаграм ірини' + emoji.emojize(":up-right_arrow:"), url=INSTA_LINK)
     cancel_btn = InlineKeyboardButton(text='Назад' + emoji.emojize(":BACK_arrow:"), callback_data=menu_callback.new(item_name='cancel'))
     initial_keyboard.insert(descr_btn)
     initial_keyboard.insert(additional_btn)
+    initial_keyboard.insert(choice_link)
+    initial_keyboard.insert(choice_sign)
     initial_keyboard.insert(cancel_btn)
     return initial_keyboard
 
@@ -133,10 +139,16 @@ async def pay_keyboard():
     return initial_keyboard
 
 async def lesson_keyboard():
+    INSTA_LINK = "https://www.instagram.com/orlovskairyna/"
     initial_keyboard = InlineKeyboardMarkup()
+    choice_link = InlineKeyboardButton(text='Інстаграм ірини' + emoji.emojize(":up-right_arrow:"), url=INSTA_LINK)
+    choice_sign = InlineKeyboardButton(text='Запис' + emoji.emojize(":memo:"),
+                                       callback_data=menu_callback.new(item_name='sign_btn'))
     cancel_btn = InlineKeyboardButton(text='Назад' + emoji.emojize(":BACK_arrow:"),
                                       callback_data=menu_callback.new(item_name='cancel'))
 
 
+    initial_keyboard.insert(choice_link)
+    initial_keyboard.insert(choice_sign)
     initial_keyboard.insert(cancel_btn)
     return initial_keyboard
